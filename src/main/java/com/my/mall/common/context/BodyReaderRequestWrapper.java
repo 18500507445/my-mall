@@ -46,7 +46,7 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
     }
 
     @Override
-    public ServletInputStream getInputStream() throws IOException {
+    public ServletInputStream getInputStream() {
         final ByteArrayInputStream byteArrayIns = new ByteArrayInputStream(body.getBytes());
         return new ServletInputStream() {
             @Override
@@ -65,7 +65,7 @@ public class BodyReaderRequestWrapper extends HttpServletRequestWrapper {
             }
 
             @Override
-            public int read() throws IOException {
+            public int read() {
                 return byteArrayIns.read();
             }
         };
