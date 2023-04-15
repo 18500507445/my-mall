@@ -36,6 +36,14 @@ mybatis:
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
 
+redisson:
+  lock:
+    server:
+      address: 47.100.174.176:63799
+      type: standalone
+      password: '@wangzehui123'
+      database: 0
+
 xxl:
   job:
     accessToken: token
