@@ -99,8 +99,8 @@ public class RespResult<T> implements Serializable {
         this.code = respResultCode.getCode();
         this.message = respResultCode.getMessage();
         this.detailMessage = respResultCode.getDetailMessage();
-        //this.traceId = traceId;
-        //this.spanId = spanId;
+        this.traceId = traceId;
+        this.spanId = spanId;
         this.env = env;
     }
 
@@ -183,6 +183,10 @@ public class RespResult<T> implements Serializable {
         RespResult<T> ar = new RespResult<T>(RespResultCode.OK);
         ar.setData(data);
         return ar;
+    }
+
+    public static <T> RespResult<T> success(IRespResultCode apiResultCode) {
+        return new RespResult<T>(apiResultCode);
     }
 
     public RespResult<T> setRespMessage(IRespResultCode respResultCode) {

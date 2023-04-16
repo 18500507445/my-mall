@@ -19,7 +19,7 @@
                update_time,
                create_time
         from my_seckill_order
-        where id = #{id}
+        where user_id = #{userId} and goods_id = #{goodsId}
     </select>
 
     <!--分页查询list-->

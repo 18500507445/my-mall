@@ -26,6 +26,8 @@ public class MyUser implements Serializable {
 
     public static final String USER_TOTAL_REQUEST = "user_total_request";
 
+    public static final String USER = "user";
+
     private Long id;
 
     /**

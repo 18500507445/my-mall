@@ -1,6 +1,12 @@
 package com.my.mall;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.my.mall.dao.MyUserDao;
+import com.my.mall.entity.MyUser;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.annotation.Resource;
 
 /**
  * @description:
@@ -9,5 +15,15 @@ import org.springframework.boot.test.context.SpringBootTest;
  */
 @SpringBootTest
 public class OrderTest {
+
+    @Resource
+    private MyUserDao myUserDao;
+
+    @Test
+    public void testUser(){
+        final MyUser myUser = myUserDao.queryById(1L);
+        System.out.println("myUser = " + JSONObject.toJSONString(myUser));
+    }
+
 
 }

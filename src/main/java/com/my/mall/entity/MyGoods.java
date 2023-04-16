@@ -25,6 +25,9 @@ public class MyGoods implements Serializable {
 
     private static final long serialVersionUID = 693632569075853902L;
 
+    public static final String TOTAL_COUNT = "total_count";
+
+    public static final String GOODS = "goods";
 
     private Long id;
 

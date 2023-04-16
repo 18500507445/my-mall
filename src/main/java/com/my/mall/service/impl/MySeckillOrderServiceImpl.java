@@ -1,11 +1,15 @@
 package com.my.mall.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.fastjson2.JSONObject;
+import com.my.mall.common.Constants;
+import com.my.mall.config.redis.RedisService;
 import com.my.mall.dao.MySeckillOrderDao;
 import com.my.mall.entity.MySeckillOrder;
 import com.my.mall.service.MySeckillOrderService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,20 +18,34 @@ import java.util.List;
  * @date 2023-04-15 15:53
  */
 @Service("mySeckillOrderService")
+@RequiredArgsConstructor
 public class MySeckillOrderServiceImpl implements MySeckillOrderService {
 
-    @Resource
-    private MySeckillOrderDao mySeckillOrderDao;
+    private final RedisService redisService;
+
+    private final MySeckillOrderDao mySeckillOrderDao;
+
+    private static final String SECKILL_ORDER = Constants.REDIS_KEY + MySeckillOrder.SECKILL_ORDER;
 
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
-     * @return 实例对象
+     * @param userId  用户id
+     * @param goodsId 商品id
      */
     @Override
-    public MySeckillOrder queryById(Long id) {
-        return mySeckillOrderDao.queryById(id);
+    public MySeckillOrder queryById(Long userId, Long goodsId) {
+        Object o = redisService.get(SECKILL_ORDER + userId + goodsId);
+        MySeckillOrder seckillOrder;
+        if (ObjectUtil.isNull(o)) {
+            seckillOrder = mySeckillOrderDao.queryById(userId, goodsId);
+            if (ObjectUtil.isNotNull(seckillOrder)) {
+                redisService.set(SECKILL_ORDER + userId + goodsId, seckillOrder, 3600L);
+            }
+        } else {
+            seckillOrder = JSONObject.parseObject(o.toString(), MySeckillOrder.class);
+        }
+        return seckillOrder;
     }
 
     /**
@@ -60,7 +78,11 @@ public class MySeckillOrderServiceImpl implements MySeckillOrderService {
      */
     @Override
     public int update(MySeckillOrder mySeckillOrder) {
-        return mySeckillOrderDao.update(mySeckillOrder);
+        int update = mySeckillOrderDao.update(mySeckillOrder);
+        if (update > 0) {
+            refreshRedis(mySeckillOrder.getUserId(), mySeckillOrder.getGoodsId());
+        }
+        return update;
     }
 
     /**
@@ -72,5 +94,15 @@ public class MySeckillOrderServiceImpl implements MySeckillOrderService {
     @Override
     public boolean deleteById(Long id) {
         return mySeckillOrderDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 刷新缓存
+     *
+     * @param userId  用户id
+     * @param goodsId 商品id
+     */
+    public void refreshRedis(Long userId, Long goodsId) {
+        redisService.del(SECKILL_ORDER + userId + goodsId);
     }
 }

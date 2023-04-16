@@ -1,11 +1,15 @@
 package com.my.mall.service.impl;
 
+import cn.hutool.core.util.ObjectUtil;
+import com.alibaba.fastjson2.JSONObject;
+import com.my.mall.common.Constants;
+import com.my.mall.config.redis.RedisService;
 import com.my.mall.dao.MyUserDao;
 import com.my.mall.entity.MyUser;
 import com.my.mall.service.MyUserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,10 +18,14 @@ import java.util.List;
  * @date 2023-04-15 15:53
  */
 @Service("myUserService")
+@RequiredArgsConstructor
 public class MyUserServiceImpl implements MyUserService {
 
-    @Resource
-    private MyUserDao myUserDao;
+    private final RedisService redisService;
+
+    private final MyUserDao myUserDao;
+
+    private static final String USER = Constants.REDIS_KEY + MyUser.USER;
 
     /**
      * 通过ID查询单条数据
@@ -27,7 +35,17 @@ public class MyUserServiceImpl implements MyUserService {
      */
     @Override
     public MyUser queryById(Long id) {
-        return myUserDao.queryById(id);
+        Object o = redisService.get(USER + id);
+        MyUser myUser;
+        if (ObjectUtil.isNull(o)) {
+            myUser = myUserDao.queryById(id);
+            if (ObjectUtil.isNotNull(myUser)) {
+                redisService.set(USER + id, JSONObject.toJSONString(myUser), 3600L);
+            }
+        } else {
+            myUser = JSONObject.parseObject(o.toString(), MyUser.class);
+        }
+        return myUser;
     }
 
     /**
@@ -60,7 +78,11 @@ public class MyUserServiceImpl implements MyUserService {
      */
     @Override
     public int update(MyUser myUser) {
-        return myUserDao.update(myUser);
+        int update = myUserDao.update(myUser);
+        if (update > 0) {
+            refreshRedis(myUser.getId());
+        }
+        return update;
     }
 
     /**
@@ -72,5 +94,14 @@ public class MyUserServiceImpl implements MyUserService {
     @Override
     public boolean deleteById(Long id) {
         return myUserDao.deleteById(id) > 0;
+    }
+
+    /**
+     * 刷新缓存
+     *
+     * @param id
+     */
+    public void refreshRedis(Long id) {
+        redisService.del(USER + id);
     }
 }

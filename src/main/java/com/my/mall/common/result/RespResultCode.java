@@ -48,8 +48,17 @@ public enum RespResultCode implements IRespResultCode {
     /**
      * 数据库有重复的记录
      */
-    ERR_CONSTRAINT_VIOLATION(100004, "数据库记录重复", "数据库记录重复");
+    ERR_CONSTRAINT_VIOLATION(100004, "数据库记录重复", "数据库记录重复"),
 
+    /**
+     * 购买条件不成立
+     */
+    BUY_NOT_ESTABLISHED(100005, "购买条件不成立", "购买条件不成立"),
+
+    /**
+     * 订单排队中
+     */
+    ORDER_QUEUING(1000006, "订单排队中，请等待结果", "订单排队中，请等待结果");
 
     /**
      * 错误码

@@ -24,6 +24,7 @@ public class MySeckillOrder implements Serializable {
 
     private static final long serialVersionUID = 489814805628794925L;
 
+    public static final String SECKILL_ORDER = "seckill_order";
 
     private Long id;
 

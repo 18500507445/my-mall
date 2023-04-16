@@ -17,10 +17,11 @@ public interface MySeckillOrderDao {
     /**
      * 通过ID查询单条数据
      *
-     * @param id 主键
+     * @param userId  用户id
+     * @param goodsId 商品id
      * @return 实例对象
      */
-    MySeckillOrder queryById(Long id);
+    MySeckillOrder queryById(Long userId, Long goodsId);
 
     /**
      * 查询指定行数据
