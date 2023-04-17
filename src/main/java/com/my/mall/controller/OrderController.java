@@ -72,8 +72,14 @@ public class OrderController extends BaseController {
         }
         redisService.expire(userTotalRequestKey, 3L);
 
-        //todo
-
+        /**
+         * 几种方案
+         * 1.mysql 乐观锁，
+         *
+         * 2.mysql 悲观锁
+         * 1.
+         * 2.
+         */
         return RespResult.success(RespResultCode.ORDER_QUEUING);
     }
 
