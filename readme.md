@@ -88,5 +88,7 @@ cat sys-info.log |grep -A 16 'orderId'
 
 
 ### 收集的知识
-* [《淘宝面试：服务端防止重复支付》](https://mp.weixin.qq.com/s/Xlo8yCPtjjG1SdF6DS8zpg)
-* [《30分钟未支付,自动取消,该怎么实现》](https://mp.weixin.qq.com/s/fQ94NgKeR6qQAcIe0CrusA)
+* [淘宝面试：服务端防止重复支付](https://mp.weixin.qq.com/s/Xlo8yCPtjjG1SdF6DS8zpg)
+* [30分钟未支付,自动取消,该怎么实现](https://mp.weixin.qq.com/s/fQ94NgKeR6qQAcIe0CrusA)
+* [分布式限流 gateway限流，redis+lua实现限流，nginx限流](https://blog.csdn.net/qq_41979344/article/details/113105303)
+* [分布式锁的实现与应用场景对比](https://blog.csdn.net/lemon89/article/details/52796775)
