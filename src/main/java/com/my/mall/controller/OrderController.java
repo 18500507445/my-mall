@@ -4,25 +4,32 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 import com.my.mall.annotation.AccessLimit;
+import com.my.mall.common.result.AjaxResult;
 import com.my.mall.common.BaseController;
 import com.my.mall.common.Constants;
 import com.my.mall.common.result.RespResult;
 import com.my.mall.common.result.RespResultCode;
 import com.my.mall.config.redis.RedisService;
-import com.my.mall.entity.MyGoods;
-import com.my.mall.entity.MySeckillOrder;
-import com.my.mall.entity.MyUser;
+import com.my.mall.entity.order.MyGoods;
+import com.my.mall.entity.order.MySeckillOrder;
+import com.my.mall.entity.order.MyUser;
 import com.my.mall.entity.dto.BaseReqDTO;
-import com.my.mall.service.MyGoodsService;
-import com.my.mall.service.MyOrderService;
-import com.my.mall.service.MySeckillOrderService;
-import com.my.mall.service.MyUserService;
+import com.my.mall.entity.param.OrderParam;
+import com.my.mall.entity.pay.MyPayConfig;
+import com.my.mall.service.order.MyGoodsService;
+import com.my.mall.service.order.MyOrderService;
+import com.my.mall.service.order.MySeckillOrderService;
+import com.my.mall.service.order.MyUserService;
+import com.my.mall.service.payorder.MyPayConfigService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @description: 订单controller
@@ -45,8 +52,63 @@ public class OrderController extends BaseController {
 
     private final MySeckillOrderService mySeckillOrderService;
 
+    private final MyPayConfigService myPayConfigService;
+
     @Value("${spring.datasource.druid.maxActive}")
     private final Long maxActive = 0L;
+
+    /**
+     * 获取订单id
+     */
+    @AccessLimit(seconds = 1, maxCount = 1)
+    @PostMapping("getOrderId")
+    public AjaxResult getOrderId(OrderParam param) {
+        Map<String, String> result = new HashMap<>(16);
+        log.info("getOrderId请求入参：{}", JSONUtil.toJsonStr(param));
+        String sid = param.getSid();
+        String source = param.getSource();
+        String newVersion = param.getNewVersion();
+        Integer payWay = param.getPayWay();
+        String userName = param.getUserName();
+        String totalAmount = param.getTotalAmount();
+        String clientType = param.getClientType();
+        Long payConfigId = param.getPayConfigId();
+        if (ObjectUtil.hasEmpty(source, sid, clientType, userName, totalAmount, payWay)) {
+            return AjaxResult.error("1000", "缺少必要参数");
+        }
+        try {
+            Map<String, String> paramsMap = new HashMap<>(16);
+            paramsMap.put("function", "getOrderId");
+            paramsMap.put("source", source);
+            paramsMap.put("sid", sid);
+            paramsMap.put("newVersion", newVersion);
+            paramsMap.put("userName", userName);
+            paramsMap.put("totalAmount", "totalAmount");
+            //根据clientType判断充值类型或者汇率
+            String productId = sid + "|pay" + sid + "|" + clientType;
+            paramsMap.put("productId", productId);
+            paramsMap.put("tradeId", "");
+            //固定获取支付配置
+            if (ObjectUtil.isNotNull(payConfigId)) {
+                MyPayConfig payConfig = myPayConfigService.selectMyPayConfigById(payConfigId);
+                if (ObjectUtil.isNotNull(payConfig)) {
+                    result.put("payConfigId", String.valueOf(payConfigId));
+                }
+            } else {
+                //随机一个支付配置
+                MyPayConfig randomConfig = myPayConfigService.getRandomConfigData(source, sid, String.valueOf(payWay));
+                if (ObjectUtil.isNotNull(randomConfig)) {
+                    result.put("payConfigId", String.valueOf(randomConfig.getId()));
+                }
+            }
+            String orderId = myOrderService.getOrderId(paramsMap);
+            result.put("orderId", orderId);
+            result.put("productId", productId);
+        } catch (Exception e) {
+            log.error("getOrderId异常：{}", e.getMessage());
+        }
+        return AjaxResult.success(result);
+    }
 
     @AccessLimit(seconds = 1, maxCount = 1)
     @PostMapping("doBuy")

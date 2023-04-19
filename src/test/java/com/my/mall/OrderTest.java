@@ -1,8 +1,8 @@
 package com.my.mall;
 
 import com.alibaba.fastjson2.JSONObject;
-import com.my.mall.dao.MyUserDao;
-import com.my.mall.entity.MyUser;
+import com.my.mall.dao.order.MyUserDao;
+import com.my.mall.entity.order.MyUser;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
