@@ -4,10 +4,11 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.mall.common.enums.DataSourceType;
 import com.mall.common.utils.SpringUtils;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -20,7 +21,8 @@ import java.util.Map;
  *
  * @author my-pay
  */
-@Configuration
+@AutoConfiguration
+@EnableConfigurationProperties({DruidProperties.class})
 public class DruidConfig {
 
     @Bean

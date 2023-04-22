@@ -1,0 +1,2 @@
+com.mall.common.config.redis.RedisConfig
+com.mall.common.config.database.DruidConfig

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.my.mall.dao.order.MyGoodsDao">
-    <resultMap type="com.my.mall.entity.order.MyGoods" id="MyGoodsMap">
+<mapper namespace="com.mall.order.dao.MyGoodsDao">
+    <resultMap type="com.mall.order.entity.MyGoods" id="MyGoodsMap">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="price" column="price" jdbcType="DECIMAL"/>

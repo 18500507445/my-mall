@@ -1,8 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.mall.common.config.RabbitConfig,\
-  com.mall.common.config.TraceFilterConfig,\
-  com.mall.common.config.XxlJobConfig,\
-  com.mall.common.config.database.DruidProperties,\
-  com.mall.common.config.database.DruidConfig,\
-  com.mall.common.config.redis.RedisConfig,\
-  com.mall.common.config.redisson.RedissonConfiguration
