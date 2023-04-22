@@ -11,11 +11,16 @@
 
     <groupId>com.my</groupId>
     <artifactId>my-mall</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <version>mall-1.0</version>
+    <packaging>pom</packaging>
 
     <name>my-mall</name>
     <description>秒杀、支付优化</description>
+    <modules>
+        <module>mall-order</module>
+        <module>mall-pay</module>
+        <module>mall-common</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -23,6 +28,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
         <java.version>1.8</java.version>
+        <mall.version>mall-1.0</mall.version>
 
         <boot.version>2.7.7</boot.version>
         <mybatis-spring-boot.version>2.2.2</mybatis-spring-boot.version>
@@ -30,222 +36,122 @@
         <xx.job.verson>2.3.1</xx.job.verson>
         <redission.version>3.20.0</redission.version>
 
-        <weixin.pay.version>4.4.0</weixin.pay.version>
-        <weixin.mp.version>4.4.0</weixin.mp.version>
-        <alipay.version>4.35.0.ALL</alipay.version>
-        <google.pay.version>v3-rev142-1.25.0</google.pay.version>
-
         <hutool.version>5.8.17</hutool.version>
         <fastjson.version>2.0.20</fastjson.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
 
     </properties>
 
-    <dependencies>
-        <!-- SpringBoot的依赖配置 统一管理各类版本号-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-dependencies</artifactId>
-            <version>${boot.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- SpringBoot的依赖配置 统一管理各类版本号-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+            <!-- SpringBoot集成mybatis框架 -->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redission.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>objenesis</artifactId>
+                        <groupId>org.objenesis</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
+            <!--阿里数据库连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
 
-        <!-- SpringBoot集成mybatis框架 -->
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis-spring-boot.version}</version>
-        </dependency>
+            <!--xxl-job -->
+            <dependency>
+                <groupId>com.xuxueli</groupId>
+                <artifactId>xxl-job-core</artifactId>
+                <version>${xx.job.verson}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>gson</artifactId>
+                        <groupId>com.google.code.gson</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-        <!-- springboot 集成redis -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
+            <!-- 糊涂工具类 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.redisson</groupId>
-            <artifactId>redisson</artifactId>
-            <version>${redission.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>objenesis</artifactId>
-                    <groupId>org.objenesis</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+            <!-- 分页插件 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>mybatis-spring-boot-starter</artifactId>
+                        <groupId>org.mybatis.spring.boot</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-        <!-- Mysql驱动包 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
+            <!-- 阿里JSON解析器 -->
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
 
-        <!-- rabbitMQ -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
+            <!-- 业务模块 -->
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>mall-common</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>mall-order</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
 
-        <!--阿里数据库连接池 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
+            <dependency>
+                <groupId>com.my</groupId>
+                <artifactId>mall-pay</artifactId>
+                <version>${mall.version}</version>
+            </dependency>
 
-        <!--xxl-job -->
-        <dependency>
-            <groupId>com.xuxueli</groupId>
-            <artifactId>xxl-job-core</artifactId>
-            <version>${xx.job.verson}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>gson</artifactId>
-                    <groupId>com.google.code.gson</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+        </dependencies>
+    </dependencyManagement>
 
-        <!-- 支付宝sdk -->
-        <dependency>
-            <groupId>com.alipay.sdk</groupId>
-            <artifactId>alipay-sdk-java</artifactId>
-            <version>${alipay.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>fastjson</artifactId>
-                    <groupId>com.alibaba</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- 微信支付 -->
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-pay</artifactId>
-            <version>${weixin.pay.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>bcprov-jdk15on</artifactId>
-                    <groupId>org.bouncycastle</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>commons-io</artifactId>
-                    <groupId>commons-io</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>guava</artifactId>
-                    <groupId>com.google.guava</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- 公众号（包括订阅号和服务号） -->
-        <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
-            <version>${weixin.mp.version}</version>
-        </dependency>
-
-        <!-- 易宝业务sdk -->
-        <dependency>
-            <groupId>com.my.pay</groupId>
-            <artifactId>yop-java-sdk</artifactId>
-            <version>3.2.25</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/resources/lib/yop-java-sdk-3.2.25-jdk18json.jar</systemPath>
-        </dependency>
-
-        <!--谷歌支付api -->
-        <dependency>
-            <groupId>com.google.apis</groupId>
-            <artifactId>google-api-services-androidpublisher</artifactId>
-            <version>${google.pay.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>j2objc-annotations</artifactId>
-                    <groupId>com.google.j2objc</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- 糊涂工具类 -->
-        <dependency>
-            <groupId>cn.hutool</groupId>
-            <artifactId>hutool-all</artifactId>
-            <version>${hutool.version}</version>
-        </dependency>
-
-        <!-- 分页插件 -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>${pagehelper.boot.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mybatis-spring-boot-starter</artifactId>
-                    <groupId>org.mybatis.spring.boot</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <!-- 阿里JSON解析器 -->
-        <dependency>
-            <groupId>com.alibaba.fastjson2</groupId>
-            <artifactId>fastjson2</artifactId>
-            <version>${fastjson.version}</version>
-        </dependency>
-
-
-    </dependencies>
 
     <build>
-        <finalName>my-mall</finalName>
         <plugins>
             <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${boot.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
                 <configuration>
-                    <fork>true</fork> <!-- 如果没有该配置，devtools不会生效 -->
-                    <includeSystemScope>true</includeSystemScope> <!-- 包含系统包 -->
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
 
@@ -258,8 +164,8 @@
                     <skipTests>true</skipTests>
                 </configuration>
             </plugin>
-
         </plugins>
+
     </build>
 
     <repositories>
