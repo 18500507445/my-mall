@@ -7,7 +7,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
 
 
-import com.mall.common.config.redis.RedisService;
+import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.pay.dao.MyPayConfigDao;
 import com.mall.pay.entity.MyPayConfig;

@@ -4,7 +4,7 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 
 
-import com.mall.common.config.redis.RedisService;
+import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;
 import com.mall.common.enums.PayWayEnum;

@@ -5,7 +5,7 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 
 
-import com.mall.common.config.redis.RedisService;
+import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;
 import com.mall.common.enums.PayWayEnum;

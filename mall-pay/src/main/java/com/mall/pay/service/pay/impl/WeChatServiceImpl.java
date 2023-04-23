@@ -11,7 +11,7 @@ import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 
-import com.mall.common.config.redis.RedisService;
+import com.mall.common.config.RedisService;
 import com.mall.common.constant.BaseController;
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;

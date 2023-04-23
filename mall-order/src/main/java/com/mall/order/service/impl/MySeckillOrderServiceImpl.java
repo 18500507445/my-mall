@@ -3,7 +3,7 @@ package com.mall.order.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson2.JSONObject;
 
-import com.mall.common.config.redis.RedisService;
+import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.order.dao.MySeckillOrderDao;
 import com.mall.order.entity.MySeckillOrder;
