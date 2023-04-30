@@ -22,6 +22,7 @@ import com.mall.order.service.MyUserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,8 @@ import java.util.Map;
 public class OrderController extends BaseController {
 
     private final RedisService redisService;
+
+    private final RedisScript<Long> script;
 
     private final MyGoodsService myGoodsService;
 
@@ -132,6 +135,11 @@ public class OrderController extends BaseController {
         }
         redisService.expire(userTotalRequestKey, 3L);
 
+        //缓存预热，然后lua脚本保证查询库存和扣减原子性
+        final Long stock = redisService.execute(script, Convert.toStr(goodsId));
+        if (stock < 0) {
+            return RespResult.error(RespResultCode.REPEATED_BUSY);
+        }
         /**
          * 几种方案
          * 1.mysql 乐观锁，

@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.TimeoutUtils;
 import org.springframework.data.redis.core.ZSetOperations;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.SerializationUtils;
 import org.springframework.stereotype.Component;
@@ -16,10 +17,7 @@ import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -699,7 +697,17 @@ public class RedisService {
         redisTemplate.opsForZSet().unionAndStore(key, keys, target);
     }
 
-
+    /**
+     * 执行lua脚本
+     *
+     * @param script
+     * @param key
+     * @param <T>
+     * @return
+     */
+    public <T> T execute(RedisScript<T> script, String key) {
+        return redisTemplate.execute(script, Collections.singletonList(key), Collections.EMPTY_LIST);
+    }
 
     /**
      * redis 模糊匹配结果集
