@@ -32,6 +32,7 @@
         <hutool.version>5.8.17</hutool.version>
         <fastjson.version>2.0.20</fastjson.version>
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
+        <jasypt.version>3.0.5</jasypt.version>
 
     </properties>
 
@@ -110,6 +111,12 @@
                 <groupId>com.alibaba.fastjson2</groupId>
                 <artifactId>fastjson2</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.ulisesbocchio</groupId>
+                <artifactId>jasypt-spring-boot-starter</artifactId>
+                <version>${jasypt.version}</version>
             </dependency>
 
             <!-- 业务模块 -->
