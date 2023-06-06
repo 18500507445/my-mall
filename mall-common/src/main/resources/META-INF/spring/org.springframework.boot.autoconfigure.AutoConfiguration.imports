@@ -1,1 +1,4 @@
+# Auto Configure
 com.mall.common.config.RedisConfig
+com.mall.common.config.RabbitConfig
+com.mall.common.config.XxlJobConfig

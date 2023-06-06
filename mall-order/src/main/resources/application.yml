@@ -48,10 +48,10 @@ xxl:
   job:
     accessToken: token
     admin:
-      addresses: http://xxx.xx.xx.xx:8080
+      addresses: http://172.30.16.74:8080
     executor:
       address:
-      appname: xxl-job-pay-job
+      appname: xxl-job-order-job
       ip:
       logpath: /opt/logbak/xxl-job/jobhandler
       logretentiondays: -1

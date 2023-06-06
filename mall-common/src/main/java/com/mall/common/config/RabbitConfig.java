@@ -1,4 +1,4 @@
-package com.mall.order.config;
+package com.mall.common.config;
 
 import com.mall.common.constant.Constants;
 import org.springframework.amqp.core.*;

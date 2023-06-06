@@ -1,9 +1,11 @@
-package com.mall.pay.config;
+package com.mall.common.config;
 
+import cn.hutool.core.util.StrUtil;
 import com.xxl.job.core.executor.impl.XxlJobSpringExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * xxl-job config
@@ -11,42 +13,45 @@ import org.springframework.context.annotation.Bean;
  * @author xuxueli 2017-04-28
  */
 @Slf4j
-//@Configuration
+@Configuration
 public class XxlJobConfig {
 
-    @Value("${xxl.job.admin.addresses}")
+    @Value("${xxl.job.admin.addresses:default}")
     private String adminAddresses;
 
-    @Value("${xxl.job.executor.appname}")
+    @Value("${xxl.job.executor.appname:default}")
     private String appName;
 
-    @Value("${xxl.job.executor.ip}")
+    @Value("${xxl.job.executor.ip:default}")
     private String ip;
 
-    @Value("${xxl.job.executor.port}")
+    @Value("${xxl.job.executor.port:-1}")
     private int port;
 
-    @Value("${xxl.job.accessToken}")
+    @Value("${xxl.job.accessToken:default}")
     private String accessToken;
 
-    @Value("${xxl.job.executor.logpath}")
+    @Value("${xxl.job.executor.logpath:default}")
     private String logPath;
 
-    @Value("${xxl.job.executor.logretentiondays}")
+    @Value("${xxl.job.executor.logretentiondays:-1}")
     private int logRetentionDays;
 
     @Bean
     public XxlJobSpringExecutor xxlJobExecutor() {
-        log.info(">>>>>>>>>>> xxl-job config init.");
-        XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
-        xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
-        xxlJobSpringExecutor.setAppname(appName);
-        xxlJobSpringExecutor.setIp(ip);
-        xxlJobSpringExecutor.setPort(port);
-        xxlJobSpringExecutor.setAccessToken(accessToken);
-        xxlJobSpringExecutor.setLogPath(logPath);
-        xxlJobSpringExecutor.setLogRetentionDays(logRetentionDays);
-        return xxlJobSpringExecutor;
+        if (!StrUtil.equals("default", adminAddresses)) {
+            log.info(">>>>>>>>>>> xxl-job config init.");
+            XxlJobSpringExecutor xxlJobSpringExecutor = new XxlJobSpringExecutor();
+            xxlJobSpringExecutor.setAdminAddresses(adminAddresses);
+            xxlJobSpringExecutor.setAppname(appName);
+            xxlJobSpringExecutor.setIp(ip);
+            xxlJobSpringExecutor.setPort(port);
+            xxlJobSpringExecutor.setAccessToken(accessToken);
+            xxlJobSpringExecutor.setLogPath(logPath);
+            xxlJobSpringExecutor.setLogRetentionDays(logRetentionDays);
+            return xxlJobSpringExecutor;
+        }
+        return null;
     }
 
     /**
