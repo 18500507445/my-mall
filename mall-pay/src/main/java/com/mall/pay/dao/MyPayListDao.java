@@ -63,6 +63,7 @@ public interface MyPayListDao {
 
     /**
      * 批量插入
+     *
      * @param list
      * @return
      */

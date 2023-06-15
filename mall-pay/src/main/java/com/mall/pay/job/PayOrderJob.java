@@ -19,7 +19,6 @@ import com.github.binarywang.wxpay.bean.result.WxPayOrderQueryV3Result;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.pagehelper.PageHelper;
-
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;
 import com.mall.common.enums.PayWayEnum;

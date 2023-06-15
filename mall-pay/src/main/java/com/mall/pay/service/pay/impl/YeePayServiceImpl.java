@@ -2,9 +2,7 @@ package com.mall.pay.service.pay.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-
 import com.alibaba.fastjson2.JSONObject;
-
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;
 import com.mall.common.enums.PayWayEnum;

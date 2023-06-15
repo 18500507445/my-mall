@@ -2,7 +2,6 @@ package com.mall.common.constant.result;
 
 import cn.hutool.core.util.ObjectUtil;
 import lombok.ToString;
-import org.junit.platform.commons.util.ToStringBuilder;
 
 import java.util.HashMap;
 
@@ -291,6 +290,7 @@ public class AjaxResult extends HashMap<String, Object> {
 
     /**
      * 返回错误消息
+     *
      * @param code
      * @param msg
      * @return

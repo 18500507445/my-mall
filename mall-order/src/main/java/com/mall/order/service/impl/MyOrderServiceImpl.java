@@ -3,7 +3,6 @@ package com.mall.order.service.impl;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.thread.ThreadUtil;
 import cn.hutool.core.util.IdUtil;
-
 import com.mall.order.dao.MyOrderDao;
 import com.mall.order.entity.MyOrder;
 import com.mall.order.service.MyOrderService;

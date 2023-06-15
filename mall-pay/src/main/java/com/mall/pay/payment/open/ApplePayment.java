@@ -89,7 +89,7 @@ public class ApplePayment {
      */
     public static String buyAppVerify(String receipt, String verifyState) {
         String url = PRO_URL;
-        if ("Sandbox" .equals(verifyState)) {
+        if ("Sandbox".equals(verifyState)) {
             url = BOX_URL;
         }
         try {
@@ -135,7 +135,7 @@ public class ApplePayment {
      */
     public static String buyAppVerify(String receipt, String verifyState, String key) {
         String url = PRO_URL;
-        if ("Sandbox" .equals(verifyState)) {
+        if ("Sandbox".equals(verifyState)) {
             url = BOX_URL;
         }
         try {
@@ -247,7 +247,7 @@ public class ApplePayment {
         System.out.println("json=" + json);
         status = getStatus(json);
         transactionId = getTransactionId(json);
-        if ("21007" .equals(status)) {
+        if ("21007".equals(status)) {
             verifyState = "Sandbox";
             String json1 = buyAppVerify(receipt, verifyState);
             status = getStatus(json1);
@@ -255,7 +255,7 @@ public class ApplePayment {
         }
         System.out.println(status);
         System.out.println("transaction_id=" + transactionId);
-        if ("0" .equals(status)) {
+        if ("0".equals(status)) {
             System.out.println("验证成功" + verifyState);
         }
     }

@@ -4,7 +4,6 @@ package com.mall.pay.payment.open;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.TypeReference;
-
 import com.mall.common.constant.Constants;
 import com.mall.pay.entity.param.YeePayParam;
 import com.yeepay.g3.sdk.yop.client.YopRequest;

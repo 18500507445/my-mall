@@ -2,8 +2,6 @@ package com.mall.pay.service.pay.impl;
 
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
-
-
 import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;

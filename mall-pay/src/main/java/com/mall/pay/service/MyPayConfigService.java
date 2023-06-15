@@ -1,7 +1,6 @@
 package com.mall.pay.service;
 
 
-
 import com.mall.pay.entity.MyPayConfig;
 
 import java.util.List;

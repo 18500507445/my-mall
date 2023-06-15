@@ -6,8 +6,6 @@ import com.alibaba.fastjson2.JSONObject;
 import com.alipay.api.AlipayResponse;
 import com.alipay.api.response.AlipayTradeCloseResponse;
 import com.alipay.api.response.AlipayTradeRefundResponse;
-
-
 import com.mall.common.constant.result.AjaxResult;
 import com.mall.common.enums.PayWayEnum;
 import com.mall.pay.entity.MyPayConfig;

@@ -1,10 +1,6 @@
 package com.mall.order;
 
-import com.alibaba.fastjson2.JSONObject;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import javax.annotation.Resource;
 
 /**
  * @description:

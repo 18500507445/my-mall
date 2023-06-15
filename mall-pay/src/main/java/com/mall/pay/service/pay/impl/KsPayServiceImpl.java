@@ -6,7 +6,6 @@ import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
-
 import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.common.constant.result.AjaxResult;

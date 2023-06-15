@@ -10,7 +10,6 @@ import com.github.binarywang.wxpay.bean.result.enums.TradeTypeEnum;
 import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
-
 import com.mall.common.config.RedisService;
 import com.mall.common.constant.BaseController;
 import com.mall.common.constant.Constants;

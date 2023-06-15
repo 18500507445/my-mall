@@ -5,10 +5,8 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.TypeReference;
-
 import com.mall.common.config.RedisService;
 import com.mall.common.constant.BaseController;
 import com.mall.common.constant.Constants;

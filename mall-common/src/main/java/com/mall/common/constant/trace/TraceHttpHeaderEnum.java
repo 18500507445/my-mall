@@ -5,6 +5,7 @@ import lombok.Getter;
 
 /**
  * trace http header 枚举
+ *
  * @author wzh
  */
 @Getter

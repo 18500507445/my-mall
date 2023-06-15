@@ -3,8 +3,8 @@ package com.mall.common.annotation;
 import java.lang.annotation.*;
 
 /**
- * @description: 分布式锁注解
  * @author wzh
+ * @description: 分布式锁注解
  * @date 2023/03/26 20:53
  */
 @Target({ElementType.METHOD})

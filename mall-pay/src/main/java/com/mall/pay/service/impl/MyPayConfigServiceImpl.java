@@ -5,8 +5,6 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.WeightRandom;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-
-
 import com.mall.common.config.RedisService;
 import com.mall.common.constant.Constants;
 import com.mall.pay.dao.MyPayConfigDao;

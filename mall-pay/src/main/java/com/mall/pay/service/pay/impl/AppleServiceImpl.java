@@ -1,8 +1,6 @@
 package com.mall.pay.service.pay.impl;
 
 import cn.hutool.core.util.ObjectUtil;
-
-
 import com.mall.common.constant.result.AjaxResult;
 import com.mall.common.enums.PayWayEnum;
 import com.mall.pay.entity.MyPayOrder;
@@ -24,7 +22,7 @@ import java.math.BigDecimal;
 @Service
 @RequiredArgsConstructor
 public class AppleServiceImpl implements PayService {
-    
+
     private final MyPayOrderService myPayOrderService;
 
     @Override

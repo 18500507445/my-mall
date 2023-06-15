@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 
 /**
  * @description: 微信支付配置
- * @see <a href="https://github.com/wechat-group/WxJava/wiki">wiki文档</a>
  * @author: wzh
  * @date: 2023/3/19 10:19
+ * @see <a href="https://github.com/wechat-group/WxJava/wiki">wiki文档</a>
  */
 @Component
 public class WeChatPayment {
@@ -148,7 +148,6 @@ public class WeChatPayment {
         wxMpService.setWxMpConfigStorage(configStorage);
         return wxMpService;
     }
-
 
 
 }
