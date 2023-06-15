@@ -44,18 +44,18 @@ redisson:
       password: ENC(HfT5aVyvqAy4l4hfdoz6f1Ik+Pt7+d1A/XtxdfNv4oHMZsxUWvfFqAB0heosM8l4)
       database: 0
 
-xxl:
-  job:
-    accessToken: token
-    admin:
-      addresses: http://xxx.xx.xx.xx:8080
-    executor:
-      address:
-      appname: xxl-job-pay-job
-      ip:
-      logpath: /opt/logbak/xxl-job/jobhandler
-      logretentiondays: -1
-      port: -1
+#xxl:
+#  job:
+#    accessToken: token
+#    admin:
+#      addresses: http://xxx.xx.xx.xx:8080
+#    executor:
+#      address:
+#      appname: xxl-job-pay-job
+#      ip:
+#      logpath: /opt/logbak/xxl-job/jobhandler
+#      logretentiondays: -1
+#      port: -1
 
 jasypt:
   encryptor:
