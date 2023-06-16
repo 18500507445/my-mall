@@ -4,6 +4,8 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.TimeInterval;
 import com.alibaba.fastjson2.JSONObject;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.mall.order.dao.MyOrderDao;
 import com.mall.order.dao.MyUserDao;
 import com.mall.order.entity.MyOrder;
@@ -43,6 +45,15 @@ public class OrderTest {
     public void testUser() {
         final MyUser myUser = myUserDao.queryById(1L);
         System.out.println("myUser = " + JSONObject.toJSONString(myUser));
+    }
+
+    /**
+     * PageHelper分页
+     */
+    @Test
+    public void testUserList() {
+        Page<MyOrder> myOrders = PageHelper.startPage(1, 10).doSelectPage(() -> myOrderDao.queryList(null));
+        System.out.println("myUser = " + JSONObject.toJSONString(myOrders));
     }
 
     public List<MyOrder> getList() {

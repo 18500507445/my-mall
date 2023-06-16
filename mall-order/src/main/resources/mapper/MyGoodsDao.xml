@@ -61,7 +61,6 @@
                 and operator = #{operator}
             </if>
         </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
     <!--统计总行数-->
