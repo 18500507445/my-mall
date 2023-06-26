@@ -7,10 +7,12 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 /**
  * @description: 多数据源处理
@@ -47,13 +49,10 @@ public class DataSourceAspect {
      */
     public DataSource getDataSource(ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
-        Class<? extends Object> targetClass = point.getTarget().getClass();
-        DataSource targetDataSource = targetClass.getAnnotation(DataSource.class);
-        if (null != targetDataSource) {
-            return targetDataSource;
-        } else {
-            Method method = signature.getMethod();
-            return method.getAnnotation(DataSource.class);
+        DataSource dataSource = AnnotationUtils.findAnnotation(signature.getMethod(), DataSource.class);
+        if (Objects.nonNull(dataSource)) {
+            return dataSource;
         }
+        return AnnotationUtils.findAnnotation(signature.getDeclaringType(), DataSource.class);
     }
 }
