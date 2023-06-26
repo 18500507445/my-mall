@@ -27,6 +27,9 @@ logging:
     com.my.pay: debug
     org.springframework: warn
 
+log:
+  path: /Users/wangzehui/Documents/Logs/mall-pay
+
 # MyBatis
 mybatis:
   # 搜索指定包别名
