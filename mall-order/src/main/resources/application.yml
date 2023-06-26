@@ -27,6 +27,7 @@ logging:
     com.my.pay: debug
     org.springframework: warn
 
+# 线上log路径
 log:
   path: /Users/wangzehui/Documents/Logs/mall-order
 
