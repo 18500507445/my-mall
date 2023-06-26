@@ -29,7 +29,7 @@
         <xx.job.verson>2.4.0</xx.job.verson>
         <redission.version>3.20.0</redission.version>
 
-        <hutool.version>5.8.17</hutool.version>
+        <hutool.version>5.8.20</hutool.version>
         <fastjson.version>2.0.20</fastjson.version>
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <jasypt.version>3.0.5</jasypt.version>
